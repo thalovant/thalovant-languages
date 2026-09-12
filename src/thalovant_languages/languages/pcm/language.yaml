@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -62,31 +63,20 @@ continuation_words:
 - until
 trailing_words:
 - di
-- na
-- 'no'
 - for
 - sey
 - wey
-- con
 - and
 - to
-- my
-- don
 - of
 - if
-- your
 - as
 - but
-- fit
 - because
-- our
 - in
 - 'on'
-- meh
-- deir
 - a
 - or
-- is
 - at
 - with
 - dose
@@ -94,24 +84,16 @@ trailing_words:
 - wit
 - any
 - by
-- bin
-- will
-- never
 - anoder
 - which
 - wen
-- are
-- mah
-- moh
 - every
 - dese
 - the
-- mey
 - till
 - wheder
 - into
 - anoda
-- can
 - until
 question_openers:
 - when

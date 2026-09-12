@@ -101,6 +101,7 @@ class Tally:
         self.interrogative: collections.Counter[str] = collections.Counter()
         self.pron: collections.Counter[str] = collections.Counter()
         self.pron_poss: collections.Counter[str] = collections.Counter()
+        self.possessive: collections.Counter[str] = collections.Counter()
         self.form_treebanks: dict[str, set[str]] = collections.defaultdict(set)
 
 
@@ -171,6 +172,7 @@ def tally_treebanks(ud_root: pathlib.Path) -> dict[str, Tally]:
                 if upos == "PRON":
                     tally.pron[low] += 1
                     tally.pron_poss[low] += POSSESSIVE in feats
+                tally.possessive[low] += POSSESSIVE in feats
                 if upos in CONTINUATION_UPOS or (upos == "PRON" and POSSESSIVE in feats) \
                         or (upos == "PART" and "PronType=Int" not in feats and low in ("to",)):
                     tally.closed[low] += 1
@@ -227,7 +229,15 @@ def derive_words(tally: Tally) -> dict:
             break
     if continuation:
         out["continuation_words"] = continuation
-        out["trailing_words"] = list(continuation)
+        # A registered phrase that ends on a possessive ("coupe le son") or
+        # an auxiliary ("qué hora es") is a whole sentence more often than a
+        # prefix waiting for an entity; a listing leaves those out.
+        trailing = [
+            form for form in continuation
+            if tally.possessive[form] / tally.total[form] < 0.5
+            and tally.upos[form]["AUX"] / tally.total[form] < 0.5]
+        if trailing:
+            out["trailing_words"] = trailing
     openers = []
     for form, count in tally.first.most_common():
         if count < OPENER_MIN and tally.interrogative[form] < INTERROGATIVE_MIN:
@@ -474,7 +484,14 @@ def main() -> int:
             sources.append(f"Unicode {unicode_version} SpecialCasing")
         override = load_override(tag)
         if override:
-            data.update(override)
+            # A key replaces what was derived; a key spelled "+key" adds to it,
+            # for the one word a source could not know belongs in a list.
+            for key, value in override.items():
+                if key.startswith("+") and isinstance(value, list):
+                    merged = list(data.get(key[1:]) or [])
+                    data[key[1:]] = merged + [v for v in value if v not in merged]
+                else:
+                    data[key] = value
             sources.append(f"overrides/{tag}.yaml ({', '.join(override)})")
         if not data:
             continue
@@ -488,6 +505,7 @@ def main() -> int:
             "Thresholds: a word counts once it appears in two treebanks (when the language has three);",
             f"a continuation word is closed-class {CLOSED_CLASS_PURITY:.0%} of the time and",
             f"the last word of a sentence at most {MAX_FINAL_RATIO:.0%} of the time, seen {MIN_COUNT}+ times;",
+            "a trailing word is a continuation word that is neither a possessive nor an auxiliary;",
             f"a question opener is interrogative (PronType=Int, {INTERROGATIVE_MIN}+ times) or starts a",
             f"question {OPENER_PRECISION:.0%} of the time it starts a sentence ({AUXILIARY_OPENER_PRECISION:.0%} for an auxiliary);",
             f"a question word anywhere is interrogative and sits in a question {ANYWHERE_PRECISION:.0%} of the time;",

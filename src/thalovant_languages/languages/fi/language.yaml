@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -73,68 +74,27 @@ continuation_words:
 - voisivat
 trailing_words:
 - ja
-- 'on'
-- ei
 - että
-- oli
 - kun
 - mutta
 - kuin
-- ovat
 - tai
 - jos
-- voi
-- en
-- olisi
 - sekä
 - vaikka
-- eivät
-- olen
-- olivat
 - et
-- eikä
 - koska
 - eli
-- olin
 - ett
-- pitäisi
-- voidaan
-- voisi
 - ku
 - ilman
-- täytyy
 - jotta
-- voivat
-- saattaa
-- älä
-- emme
 - mut
-- eikö
-- olisin
-- voinut
-- enkä
 - joko
 - mikäli
-- olisivat
-- voin
 - kunnes
-- voida
-- oon
 - ell
-- saattoi
-- voit
-- ette
-- voimme
-- voitaisiin
-- eivätkä
-- älkää
-- voisin
-- taitaa
-- olisiko
-- olimme
 - joll
-- olisit
-- voisivat
 question_openers:
 - mitä
 - onko

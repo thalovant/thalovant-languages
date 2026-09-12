@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -101,19 +102,11 @@ trailing_words:
 - en
 - les
 - un
-- va
-- ha
 - amb
 - una
-- és
 - com
-- van
 - aquest
-- han
 - aquesta
-- seva
-- seu
-- ser
 - entre
 - segons
 - però
@@ -122,52 +115,28 @@ trailing_words:
 - des
 - si
 - perquè
-- són
-- està
 - durant
 - quan
-- seus
-- havia
 - contra
 - tots
 - aquests
 - sense
-- pot
-- seves
 - ni
 - aquestes
-- serà
-- era
 - mentre
 - cada
 - diferents
 - totes
-- estan
 - sinó
 - tota
-- hem
-- sigui
 - pel
-- poden
-- hauria
 - mateixa
 - diversos
 - diverses
-- havien
-- podria
 - qualsevol
-- estava
-- podrà
-- seran
-- pugui
-- he
 - moltes
 - algun
-- podran
-- pogut
-- puguin
 - alguna
-- seria
 - mitjançant
 question_openers:
 - què

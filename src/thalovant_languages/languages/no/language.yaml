@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -91,7 +92,6 @@ continuation_words:
 trailing_words:
 - i
 - og
-- er
 - som
 - på
 - til
@@ -103,17 +103,12 @@ trailing_words:
 - en
 - den
 - men
-- var
-- kan
-- vil
 - et
-- skal
 - eit
 - etter
 - frå
 - ei
 - fra
-- må
 - eller
 - ved
 - når
@@ -121,21 +116,11 @@ trailing_words:
 - enn
 - denne
 - mellom
-- være
 - både
-- kunne
 - under
-- skulle
 - gjennom
-- ville
-- vore
-- vært
-- vere
 - fordi
-- vera
-- bør
 - blant
-- måtte
 - mens
 - uten
 - hvis
@@ -143,7 +128,6 @@ trailing_words:
 - desse
 - utan
 - slike
-- burde
 - neste
 - hos
 - nokre
@@ -166,7 +150,6 @@ trailing_words:
 - kring
 - tross
 - eigne
-- kunna
 - trass
 - ifølgje
 question_openers:

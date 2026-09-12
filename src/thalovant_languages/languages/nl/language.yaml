@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -101,7 +102,6 @@ trailing_words:
 - voor
 - aan
 - door
-- werd
 - als
 - om
 - tot
@@ -112,34 +112,22 @@ trailing_words:
 - over
 - of
 - na
-- hun
 - onder
-- zou
 - tegen
 - geen
 - welke
-- haar
-- zal
-- kunnen
 - tussen
-- kan
 - alle
-- moet
 - tijdens
 - omdat
 - zoals
-- kon
-- moeten
 - welk
 - enkele
 - ten
 - volgens
 - zonder
-- moest
 - sinds
 - rond
-- zullen
-- zouden
 - vanaf
 - per
 - beide
@@ -147,18 +135,12 @@ trailing_words:
 - terwijl
 - ter
 - hoewel
-- mijn
-- ben
 - via
 - naast
-- onze
 - vanuit
 - elke
 - sommige
-- konden
 - nadat
-- moesten
-- mag
 - ondanks
 - gedurende
 - zodat
@@ -166,7 +148,6 @@ trailing_words:
 - vanwege
 - doordat
 - wegens
-- mogen
 - voordat
 - iedere
 question_openers:
