@@ -1,54 +1,57 @@
 # thalovant-languages
 
 Every word a Thalovant component's rule turns on, for every language the
-fleet supports, in one place and out of every codebase.
+sources know, derived from those sources and kept in one place, out of
+every codebase.
 
 A voice satellite waits on "turn off the" because "the" is a continuation
 word. An intent listing closes "quelle heure est-il" with a question mark
 because "quelle" opens a question, and reads "volume {level} percent" aloud
 as "volume cinquante pour cent" in French. A French synthesiser is told to
 say "onze minutes" where it would swallow a consonant. Each of those is a
-fact about a language, not about the program that needs it, and each used
-to be a constant in whichever program needed it first. Here they are data:
-one directory per language, read by the SDK and by the satellite, and a new
-language is a directory in this repository rather than an edit to a program.
+fact about a language, not about the program that needs it. Here they are
+data: one directory per language, 270 of them, read by the SDK and by the
+satellite, and none of it written by hand.
+
+## Where the words come from
+
+| What | Source | How |
+| --- | --- | --- |
+| `continuation_words`, `trailing_words` | Universal Dependencies treebanks (150 languages) | a word that is a determiner, preposition, conjunction, auxiliary or possessive nearly every time it appears, and almost never the last word of a sentence |
+| `question_openers` | Universal Dependencies | an interrogative word (`PronType=Int`), or a word a sentence usually is a question when it starts with it |
+| `question_words_anywhere` | Universal Dependencies | an interrogative word a sentence almost always is a question when it holds it, wherever it sits |
+| `written_forms` | Universal Dependencies | a closed-class word written capitalised mid-sentence nine times in ten (`i: I`) |
+| `plural` | Unicode CLDR (190 locales) | the language's plural rules, verbatim, evaluated at runtime by `_plural.py` |
+| `lowercase_map` | Unicode `SpecialCasing.txt` | a language's own unconditional lower-case mappings: Turkish and Azeri's dotted and dotless i |
+| `scripts.yaml` | Unicode `PropList.txt`, `Scripts.txt` | scripts written without spaces, scripts where a character is a syllable, the marks that close a sentence (`Sentence_Terminal`) or break a clause (`Terminal_Punctuation`), spaced or unspaced |
+| `slot_examples`, `speech_substitutions`, `question_patterns` | `overrides/<tag>.yaml` | what only a person knows: how a slot reads aloud in a house, what a Piper voice mispronounces, an inversion no treebank lists |
+
+Every generated file starts with a header naming its sources, their
+versions, the treebanks it was read from, and the thresholds that decided
+what got in. The thresholds are numbers a reader can argue with; the
+argument then has its facts. Two of them were settled by measurement on the
+voice satellite: English "is" ends three sentences in a hundred and is worth
+waiting on, "on" ends six ("turn it on") and is not.
 
 ## Layout
 
-```
+```text
 src/thalovant_languages/languages/
   scripts.yaml            what a writing system does that no word list can
-  en-US/language.yaml     English
-  fr-FR/language.yaml     French
-  es/language.yaml        Spanish, every region (bare tag)
-  de/ it/ pt/ nl/         German, Italian, Portuguese, Dutch
-  tr/ az/                 Turkish, Azerbaijani (the dotless i)
+  en/language.yaml        English, every region
+  fr/language.yaml        French
+  pt/language.yaml        Portuguese ...
+  pt-PT/language.yaml     ... and what European Portuguese does differently
+overrides/
+  en.yaml, fr.yaml        what only a person knows, laid on top
+  scripts.yaml            the two marks the synthesiser splits on that Unicode does not list
+scripts/derive.py         the generator
 ```
 
-A directory is named by a BCP-47 tag: bare (`es`) when what it says holds
-for every region, regional (`en-US`) when it does not. Every key in a
-language file is optional. A language that states none of them gets no
-rule at all, never another language's: a wrong question mark reads as a
-defect, a bare line does not.
-
-| Key | What a component does with it |
-|---|---|
-| `continuation_words` | a partial transcript ending here is mid-thought; the endpoint waits |
-| `trailing_words` | a registered phrase ending here is a prefix waiting for an entity, not a sentence |
-| `question_openers` | a phrase opening here is a question |
-| `question_words_anywhere` | a phrase holding one of these anywhere is a question |
-| `question_patterns` | regular expressions (case-insensitive) that make a phrase a question |
-| `written_forms` | words spelled their own way once a phrase is set as a sentence (`i: I`) |
-| `plural` | which counts take which form of a counted string; a count listed nowhere is `other` |
-| `slot_examples` | what a slot becomes when a pattern is read aloud |
-| `lowercase_map` | applied to an all-capitals transcript, in order, before `lower()` |
-| `speech_substitutions` | rewrites for what a synthesiser is known to mispronounce (`pattern`, `replace`, `why`) |
-
-`scripts.yaml` lists the scripts written without spaces (a partial
-transcript in one is a single "word", so characters are counted), the
-scripts where one character is a syllable (how a synthesiser weighs a
-sentence), and the marks that close a sentence or break a clause, spaced
-and unspaced.
+A directory is named by a BCP-47 tag: bare when what it says holds for
+every region, regional when a source says the region differs (CLDR gives
+`pt-PT` its own plural rule). A regional file carries only the difference;
+the loader lays it over the language's file.
 
 ## Use
 
@@ -57,29 +60,39 @@ import thalovant_languages as languages
 
 languages.language("fr-CA")["continuation_words"]   # the French file
 languages.words("en", "trailing_words")             # lower-cased, as a set
-languages.language("zh")                            # {} -- nothing describes it
+languages.plural_category("ru", 21)                 # "one", by CLDR's rules
+languages.language("tlh")                           # {} -- nothing describes it
 languages.script_pattern("unspaced").search("今天") # a character of an unspaced script
-languages.marks("sentence_ends", "spaced")          # ".!?…;"
+languages.marks("sentence_ends", "spaced")          # every Sentence_Terminal mark, and "…;"
 ```
 
 A language is found by the matcher the rest of OVOS uses
-(`ovos_spec_tools.language`): `fr-CA` reads `fr-FR`, `pt-BR` reads `pt`,
-and a language nothing describes gets an empty mapping.
+(`ovos_spec_tools.language`): `fr-CA` reads `fr`, `en-GB` reads `en`, and a
+language nothing describes gets an empty mapping rather than another
+language's rules. The keys a component reads are `thalovant_languages.KEYS`.
 
 `THALOVANT_LANGUAGES_DIR=/path/to/checkout/src/thalovant_languages/languages`
-reads a checkout instead of the installed data, for trying a language before
+reads a checkout instead of the installed data, for trying a change before
 it is released; `languages.refresh()` forgets what was read after changing it.
 
-## Adding a language
+## Regenerating
 
-1. Add `src/thalovant_languages/languages/<tag>/language.yaml` with the keys
-   the language needs, each with a comment saying why the words are there.
-   Quote a word YAML would read as something else (`"on"`, `"no"`).
-2. Run `thalovant-languages check` (or `pytest`). It refuses a key no
-   component reads, a pattern that does not compile, a plural category that
-   is not one, and a list holding a boolean.
-3. Open a pull request. Merging to `main` releases the package; the SDK and
-   the satellite pick the language up when they move their pin.
+```bash
+pip install -e ".[dev]"
+curl -LO https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt      # and Scripts.txt, SpecialCasing.txt
+curl -LO https://raw.githubusercontent.com/unicode-org/cldr-json/main/cldr-json/cldr-core/supplemental/plurals.json
+# the treebanks: https://universaldependencies.org/ -> the current release archive (~700 MB)
+python scripts/derive.py --ud ud-treebanks-v2.18 --cldr plurals.json --unicode .
+thalovant-languages check
+git diff --stat
+```
+
+The generator reads about four gigabytes of treebanks in a minute or two
+and rewrites every file; review the diff, commit. To change a word, do not
+edit the file: change the generator's thresholds, or put what you know in
+`overrides/`, and rerun. `thalovant-languages check` refuses a key no
+component reads, a pattern that does not compile, a plural rule the
+evaluator cannot read, and a list holding a boolean.
 
 ## Who reads it
 
@@ -87,7 +100,7 @@ it is released; `languages.refresh()` forgets what was read after changing it.
   the way a person reads it, ranks phrases, and reads slots aloud.
 - `thalovant-voice` (the satellite): the semantic endpoint's continuation
   words, the lower-casing of an all-capitals transcript, the plural forms of
-  its own counted text, and the synthesiser's pronunciation repairs.
+  its own counted text, the synthesiser's pronunciation repairs.
 
 Nothing here parses dates, numbers or colours; the OVOS parsers do that for
 skills on the hub. Contractions come from `ovos-utterance-normalizer`, which

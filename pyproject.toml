@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "thalovant-languages"
-version = "0.1.1"
+version = "0.2.0"
 description = "Every word a Thalovant component's rule turns on, for every supported language, in one place."
 readme = "README.md"
 license = "Apache-2.0"
@@ -30,6 +30,8 @@ dependencies = [
 dev = [
     "build>=1.2",
     "pytest>=8.0",
+    # Cross-checks the plural rule evaluator against CLDR through Babel.
+    "babel>=2.14",
 ]
 
 [project.scripts]
