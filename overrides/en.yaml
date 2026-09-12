@@ -1,0 +1,10 @@
+# What a slot becomes when a registered pattern is read aloud: "volume
+# {level} percent" has to be sayable. Plausible, and never a fact about the
+# estate. A slot with no example keeps its own name, which reads worse but
+# invents nothing.
+slot_examples:
+  incident: the last one
+  level: fifty
+  location: Toronto
+  query: the garage door
+  topic: power

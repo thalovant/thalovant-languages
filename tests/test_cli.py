@@ -32,8 +32,8 @@ def test_check_fails_on_a_broken_tree(tmp_path, capsys):
 def test_list_and_show(capsys):
     assert main(["list"]) == 0
     listed = capsys.readouterr().out.split()
-    assert "en-US" in listed and "fr-FR" in listed
+    assert "en" in listed and "fr" in listed and len(listed) > 200
     assert main(["show", "fr-CA"]) == 0
     shown = capsys.readouterr().out
     assert "continuation_words:" in shown and "speech_substitutions: 1" in shown
-    assert main(["show", "zh"]) == 1
+    assert main(["show", "tlh"]) == 1

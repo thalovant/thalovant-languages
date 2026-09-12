@@ -31,11 +31,12 @@ from typing import Any
 import yaml
 from ovos_spec_tools.language import closest_lang
 
+from . import _plural
 from ._version import __version__
 
 __all__ = [
     "KEYS", "ENV_OVERRIDE", "__version__", "check", "described", "language",
-    "marks", "refresh", "root", "script_pattern", "scripts", "words",
+    "marks", "plural_category", "refresh", "root", "script_pattern", "scripts", "words",
 ]
 
 DATA_ROOT = Path(__file__).resolve().parent / "languages"
@@ -50,7 +51,7 @@ KEYS: dict[str, str] = {
     "question_words_anywhere": "a phrase holding one of these anywhere is a question",
     "question_patterns": "regular expressions (case-insensitive) that make a phrase a question",
     "written_forms": "words spelled their own way once a phrase is set as a sentence",
-    "plural": "which counts take which form of a counted string; a count listed nowhere is 'other'",
+    "plural": "the language's CLDR plural rules, a category to its rule; 'other' is what remains",
     "slot_examples": "what a slot becomes when a pattern is read aloud",
     "lowercase_map": "applied to an all-capitals transcript, in order, before lower()",
     "speech_substitutions": "rewrites for what a synthesiser is known to mispronounce",
@@ -100,15 +101,30 @@ def _language(where: str, tag: str) -> dict[str, Any]:
     match = closest_lang(tag, list(languages)) if languages else None
     if match is None:
         return {}
-    return _load(Path(where) / match / "language.yaml")
+    data = _load(Path(where) / match / "language.yaml")
+    # A regional file says only what differs from the language: CLDR gives
+    # `pt-PT` its own plural rule and nothing else, so the words come from
+    # `pt`. The region's keys win where both say something.
+    parent = match.split("-")[0]
+    if parent != match and parent in languages:
+        data = {**_load(Path(where) / parent / "language.yaml"), **data}
+    return data
 
 
 def language(tag: str | None) -> dict[str, Any]:
-    """What is known about a language: its file, by the closest tag. An
-    empty mapping for a language nothing describes, or for none at all."""
+    """What is known about a language: its file, by the closest tag, with
+    its parent language's file underneath a regional one. An empty mapping
+    for a language nothing describes, or for none at all."""
     if not tag:
         return {}
     return _language(str(root()), str(tag).strip())
+
+
+def plural_category(tag: str | None, n: int) -> str:
+    """Which plural form a count takes in the language, by its CLDR rules:
+    "one", "few", "many"... or "other". With no rules known, one is "one"
+    and everything else "other", the least surprising guess."""
+    return _plural.category(language(tag).get("plural"), n)
 
 
 def words(tag: str | None, key: str) -> frozenset[str]:
@@ -225,14 +241,16 @@ def _check_language(path: Path) -> list[str]:
                 out.append(f"question_patterns: {pattern!r} does not compile: {failure}")
     plural = data.get("plural")
     if plural is not None:
-        if not isinstance(plural, dict) or not plural:
-            out.append("plural: must map a category to the counts that take it")
+        if not isinstance(plural, dict):
+            out.append("plural: must map a category to its CLDR rule (an empty mapping: every count is 'other')")
         else:
-            for category, counts in plural.items():
+            for category, rule in plural.items():
                 if category not in _PLURAL_CATEGORIES:
                     out.append(f"plural: {category!r} is not a category (zero, one, two, few, many)")
-                if not isinstance(counts, list) or not all(isinstance(n, int) for n in counts):
-                    out.append(f"plural: {category!r} must list integer counts")
+                try:
+                    _plural.parse(str(rule))
+                except _plural.PluralRuleError as failure:
+                    out.append(f"plural: {failure}")
     for rule in data.get("speech_substitutions") or ():
         if not isinstance(rule, dict) or not {"pattern", "replace"} <= set(rule):
             out.append(f"speech_substitutions: {rule!r} needs pattern and replace")
@@ -265,7 +283,7 @@ def _check_scripts(path: Path) -> list[str]:
                 out.append(f"{kind}: {block!r} needs name, first and last")
                 continue
             try:
-                if _code_point(block["first"]) >= _code_point(block["last"]):
+                if _code_point(block["first"]) > _code_point(block["last"]):
                     out.append(f"{kind}: {block['name']} ends before it starts")
             except ValueError:
                 out.append(f"{kind}: {block['name']} has a code point that is not U+XXXX")

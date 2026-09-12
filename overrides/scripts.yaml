@@ -1,0 +1,11 @@
+# Measured on the voice satellite, not in Unicode: the synthesiser already
+# splits "One thing; another thing; a third." in three, and an ellipsis ends
+# what it ends. Unicode counts neither as Sentence_Terminal, so they are added
+# to the spaced sentence marks and taken out of the clause breaks.
+sentence_ends_also_spaced: "…;"
+# Roughly a syllable per character in a script without spaces, and a command
+# is a few of them: a minimum of N words is N times this many characters.
+characters_per_word: 2
+# To a synthesiser one character of a syllabic script weighs this many Latin
+# letters when the streaming split decides what is too short to say alone.
+letters_per_character: 5
