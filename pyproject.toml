@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Every word a Thalovant component's rule turns on, for every supported language, in one place."
 readme = "README.md"
 license = "Apache-2.0"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 authors = [{ name = "Thalovant" }]
 keywords = ["thalovant", "openvoiceos", "language", "locale", "voice-assistant"]
 classifiers = [
