@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "thalovant-languages"
+version = "0.1.0"
+description = "Every word a Thalovant component's rule turns on, for every supported language, in one place."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+authors = [{ name = "Thalovant" }]
+keywords = ["thalovant", "openvoiceos", "language", "locale", "voice-assistant"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = [
+    "PyYAML>=6.0",
+    # The language matcher the rest of OVOS uses, with langcodes so a bare
+    # tag and a regional one measure the way they do in a skill.
+    "ovos-spec-tools[langcodes]>=1.10.5a1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "build>=1.2",
+    "pytest>=8.0",
+]
+
+[project.scripts]
+thalovant-languages = "thalovant_languages.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/thalovant/thalovant-languages"
+Repository = "https://github.com/thalovant/thalovant-languages"
+Issues = "https://github.com/thalovant/thalovant-languages/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/thalovant_languages"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "LICENSE", "README.md", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

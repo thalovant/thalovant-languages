@@ -1,0 +1,8 @@
+# What the fleet knows about Azerbaijani: it has a dotted and a dotless i, and they
+# are different letters. The capital of "i" is "İ" and the capital of "ı" is
+# "I". Python's lower() knows neither, and turns "İŞIKLARI KAPAT" into
+# "i̇şıklari kapat", a string no Azerbaijani intent sample contains. An all-capitals
+# transcript is folded through this map, in this order, before lower().
+lowercase_map:
+  İ: i
+  I: ı

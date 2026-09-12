@@ -1,0 +1,49 @@
+# What the fleet knows about writing systems, as opposed to languages.
+#
+# A language file (`<tag>/language.yaml`) says which words belong to a
+# language. This file says what a script does that no word list can: whether
+# it puts spaces between words, whether one character is one syllable, and
+# which marks close a sentence or break a clause. Code points are given as
+# `U+XXXX`, first and last of a block, and a component builds its character
+# classes from them.
+
+# Scripts written without spaces between words. A partial transcript in one
+# of these is a single "word" to str.split() however long it is, so a
+# semantic endpoint counts characters instead and the continuation gate does
+# not apply.
+unspaced:
+  ranges:
+    - {name: Hiragana and Katakana, first: U+3040, last: U+30FF}
+    - {name: CJK Unified Ideographs Extension A, first: U+3400, last: U+4DBF}
+    - {name: CJK Unified Ideographs, first: U+4E00, last: U+9FFF}
+    - {name: Thai, first: U+0E00, last: U+0E7F}
+  # Roughly a syllable per character, and a command is a few of them: a
+  # minimum of N words is a minimum of this many characters per word.
+  characters_per_word: 2
+
+# Scripts where one character is a syllable or a word. To a synthesiser, a
+# six-character Chinese sentence is a full sentence, not a fragment to glue
+# onto its neighbour; each character weighs this many Latin letters when a
+# streaming split decides what is too short to say on its own.
+syllabic:
+  ranges:
+    - {name: Hiragana and Katakana, first: U+3040, last: U+30FF}
+    - {name: CJK Unified Ideographs Extension A, first: U+3400, last: U+4DBF}
+    - {name: CJK Unified Ideographs, first: U+4E00, last: U+9FFF}
+    - {name: Hangul Syllables, first: U+AC00, last: U+D7AF}
+  letters_per_character: 5
+
+# Marks that end a sentence. The spaced ones need whitespace after them
+# ("3.5" is a number, not two sentences); the unspaced ones -- CJK and
+# Arabic -- are followed by nothing at all. Semicolons too: measured on the
+# voice satellite, the synthesiser already splits "One thing; another thing;
+# a third." in three.
+sentence_ends:
+  spaced: ".!?…;"
+  unspaced: "。！？；؟"
+
+# Marks that break a sentence into clauses: where playback can start before
+# the first sentence is whole. A synthesiser never splits a comma itself.
+clause_breaks:
+  spaced: ",;:"
+  unspaced: "，、；،"

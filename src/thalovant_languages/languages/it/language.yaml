@@ -1,0 +1,42 @@
+# What the fleet knows about Italian without a word of it being read or heard
+# by anybody. Only the rules a component has needed so far; a language file
+# grows a key at a time. A directory named by the bare language tag serves
+# every region of it (it-IT, it-CH).
+#
+# A partial transcript ending on one of these is mid-thought, however stable
+# it looks, and the semantic endpoint waits rather than firing mid-command.
+continuation_words:
+  - il
+  - lo
+  - la
+  - i
+  - gli
+  - le
+  - un
+  - uno
+  - una
+  - di
+  - del
+  - della
+  - dei
+  - delle
+  - a
+  - al
+  - alla
+  - in
+  - nel
+  - nella
+  - con
+  - per
+  - e
+  - o
+  - che
+  - è
+  - sono
+  - mio
+  - mia
+  - miei
+  - mie
+  - questo
+  - questa
+  - ma

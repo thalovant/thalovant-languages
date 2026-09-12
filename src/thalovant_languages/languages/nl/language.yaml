@@ -1,0 +1,28 @@
+# What the fleet knows about Dutch without a word of it being read or heard
+# by anybody. Only the rules a component has needed so far; a language file
+# grows a key at a time. A directory named by the bare language tag serves
+# every region of it (nl-NL, nl-BE).
+#
+# A partial transcript ending on one of these is mid-thought, however stable
+# it looks, and the semantic endpoint waits rather than firing mid-command.
+continuation_words:
+  - de
+  - het
+  - een
+  - en
+  - of
+  - in
+  - op
+  - aan
+  - met
+  - van
+  - voor
+  - naar
+  - is
+  - zijn
+  - mijn
+  - deze
+  - dit
+  - die
+  - dat
+  - maar

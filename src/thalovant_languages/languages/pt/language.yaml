@@ -1,0 +1,39 @@
+# What the fleet knows about Portuguese without a word of it being read or heard
+# by anybody. Only the rules a component has needed so far; a language file
+# grows a key at a time. A directory named by the bare language tag serves
+# every region of it (pt-PT, pt-BR).
+#
+# A partial transcript ending on one of these is mid-thought, however stable
+# it looks, and the semantic endpoint waits rather than firing mid-command.
+continuation_words:
+  - o
+  - a
+  - os
+  - as
+  - um
+  - uma
+  - uns
+  - umas
+  - de
+  - do
+  - da
+  - dos
+  - das
+  - em
+  - "no"  # quoted: bare, YAML reads it as a boolean
+  - na
+  - nos
+  - nas
+  - com
+  - por
+  - para
+  - e
+  - ou
+  - que
+  - é
+  - são
+  - meu
+  - minha
+  - este
+  - esta
+  - mas
