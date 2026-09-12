@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -89,41 +90,25 @@ continuation_words:
 - kõigist
 trailing_words:
 - ja
-- 'on'
 - et
-- ei
 - kui
-- oli
 - ning
-- oma
 - või
 - nagu
 - kuid
-- võib
-- oleks
 - sest
-- olid
-- olen
 - kogu
-- peaks
-- peab
 - iga
 - kuna
 - kuigi
 - mingi
-- võiks
 - sel
-- võivad
 - ent
 - mitu
-- oleme
 - igal
 - samal
 - mingit
-- olin
-- pidi
 - mõne
-- võis
 - kohaselt
 - kõigi
 - kõiki
@@ -133,38 +118,28 @@ trailing_words:
 - ehkki
 - üheks
 - mingeid
-- võiksid
 - selliseid
 - mitmeid
 - mingil
-- peaksid
-- oleksid
 - vaatamata
 - sellisel
 - igas
 - mitmed
 - mõnda
-- peame
-- olles
 - selliste
-- võid
 - keset
 - mõnes
 - kõikide
 - mingid
 - väljaspool
 - mitme
-- olime
 - teistes
 - juurest
-- oleksin
 - paljudes
-- võinud
 - otsekui
 - mingis
 - mõnede
 - mitmete
-- võin
 - tol
 - kõigist
 question_openers:

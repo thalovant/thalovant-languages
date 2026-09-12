@@ -1,3 +1,10 @@
+# « a » sans accent est « à » : la skill météo écrit son français sans
+# accents (« quelles sont les conditions actuelles a »), et pour les corpus
+# « a » est le verbe avoir, qui termine une phrase. Ajouté aux mots de fin
+# de préfixe pour que la liste ne ponctue pas une moitié de phrase.
++trailing_words:
+  - a
+
 # Inversion sujet-verbe, et « est-ce que » : ce qu'aucun corpus ne donne
 # sous forme de liste. Expressions régulières, sans tenir compte de la
 # casse. La skill météo écrit son français sans accents ni traits d'union

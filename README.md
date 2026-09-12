@@ -17,7 +17,8 @@ satellite, and none of it written by hand.
 
 | What | Source | How |
 | --- | --- | --- |
-| `continuation_words`, `trailing_words` | Universal Dependencies treebanks (150 languages) | a word that is a determiner, preposition, conjunction, auxiliary or possessive nearly every time it appears, and almost never the last word of a sentence |
+| `continuation_words` | Universal Dependencies treebanks (150 languages) | a word that is a determiner, preposition, conjunction, auxiliary or possessive nearly every time it appears, and almost never the last word of a sentence |
+| `trailing_words` | Universal Dependencies | the continuation words that are neither a possessive nor an auxiliary: "coupe le son" and "qué hora es" are whole sentences, not prefixes |
 | `question_openers` | Universal Dependencies | an interrogative word (`PronType=Int`), or a word a sentence usually is a question when it starts with it |
 | `question_words_anywhere` | Universal Dependencies | an interrogative word a sentence almost always is a question when it holds it, wherever it sits |
 | `written_forms` | Universal Dependencies | a closed-class word written capitalised mid-sentence nine times in ten (`i: I`) |

@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -105,14 +106,11 @@ trailing_words:
 - для
 - или
 - до
-- был
 - если
 - когда
 - при
 - чтобы
 - во
-- были
-- была
 - под
 - со
 - которые
@@ -126,38 +124,28 @@ trailing_words:
 - об
 - этой
 - перед
-- своей
 - над
 - такой
-- свою
 - которых
 - этих
-- свои
 - тот
 - которая
 - сам
 - такие
-- своих
 - которой
 - эта
 - тех
 - про
 - эту
-- своего
-- будут
 - те
 - которого
 - среди
-- свой
 - таких
 - таким
 - кроме
 - каждый
-- нашей
-- своим
 - из-за
 - против
-- свое
 - около
 - многих
 - самом

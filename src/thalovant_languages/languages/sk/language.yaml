@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -92,35 +93,26 @@ trailing_words:
 - a
 - na
 - v
-- je
 - že
 - do
 - s
 - z
 - o
-- by
 - ako
 - keď
-- bol
 - po
-- jeho
 - za
 - k
 - ale
-- sme
-- bola
 - od
 - aby
 - pri
 - vo
 - pre
-- sú
 - ktoré
 - pred
 - so
 - ktorý
-- bude
-- boli
 - medzi
 - ten
 - zo
@@ -131,10 +123,7 @@ trailing_words:
 - toho
 - okolo
 - ak
-- byť
-- svoje
 - bez
-- ste
 - všetky
 - či
 - tomu
@@ -143,7 +132,6 @@ trailing_words:
 - tejto
 - ku
 - kým
-- svojej
 - počas
 - všetkých
 - lebo
@@ -158,16 +146,12 @@ trailing_words:
 - tá
 - tej
 - ktorí
-- svojich
-- svojho
 - ktorú
 - u
-- svoju
 - niekoľko
 - tú
 - tým
 - tie
-- moja
 - okrem
 question_openers:
 - čo

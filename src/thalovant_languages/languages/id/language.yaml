@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -87,16 +88,12 @@ trailing_words:
 - dari
 - untuk
 - dalam
-- adalah
 - oleh
 - sebagai
-- akan
 - atau
 - ke
 - sebuah
-- telah
 - karena
-- dapat
 - bahwa
 - setelah
 - seperti
@@ -105,7 +102,6 @@ trailing_words:
 - antara
 - kepada
 - beberapa
-- bisa
 - para
 - selama
 - hingga
@@ -113,14 +109,12 @@ trailing_words:
 - tentang
 - sampai
 - terhadap
-- sudah
 - serta
 - sejak
 - ketika
 - menurut
 - sehingga
 - bagi
-- harus
 - per
 - berbagai
 - tapi
@@ -138,10 +132,7 @@ trailing_words:
 - meski
 - mengenai
 - agar
-- sedang
-- mampu
 - meskipun
-- ialah
 - bila
 - walaupun
 - kalau

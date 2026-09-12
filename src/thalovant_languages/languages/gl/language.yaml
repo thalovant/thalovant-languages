@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -101,72 +102,45 @@ trailing_words:
 - unha
 - con
 - para
-- é
 - ou
-- súa
 - este
 - esta
-- seu
 - entre
 - sobre
-- son
-- ser
 - sen
 - pero
-- pode
 - todo
-- está
 - cada
-- foi
 - estes
-- seus
-- súas
 - estas
 - desde
 - durante
 - ata
 - todos
-- están
-- poden
 - outra
 - outras
-- debe
-- sexa
-- será
 - porque
 - todas
 - ese
 - dende
 - algúns
 - calquera
-- era
 - mais
 - mediante
-- nosa
 - aqueles
 - pois
 - uns
-- foron
 - esa
 - nin
 - senón
-- poderá
-- sendo
 - coma
 - moitos
 - toda
-- noso
-- poderán
 - moitas
 - tal
 - tras
-- deben
 - unhas
-- serán
 - ca
-- sería
-- podería
-- podemos
 - aquelas
 - algunhas
 plural:

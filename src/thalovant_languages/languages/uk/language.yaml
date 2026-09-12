@@ -3,6 +3,7 @@
 # Thresholds: a word counts once it appears in two treebanks (when the language has three);
 # a continuation word is closed-class 80% of the time and
 # the last word of a sentence at most 4% of the time, seen 20+ times;
+# a trailing word is a continuation word that is neither a possessive nor an auxiliary;
 # a question opener is interrogative (PronType=Int, 20+ times) or starts a
 # question 60% of the time it starts a sentence (40% for an auxiliary);
 # a question word anywhere is interrogative and sits in a question 85% of the time;
@@ -116,11 +117,7 @@ trailing_words:
 - яка
 - після
 - цей
-- був
-- бути
 - бо
-- були
-- би
 - через
 - при
 - всіх
@@ -128,7 +125,6 @@ trailing_words:
 - без
 - ті
 - той
-- будемо
 - цю
 - перед
 - тих
@@ -136,27 +132,18 @@ trailing_words:
 - зі
 - ця
 - цієї
-- свої
 - між
-- свою
 - яку
 - кілька
 - ніж
-- наша
 - такі
-- будуть
 - цих
-- наших
-- нашої
-- наші
 - яке
 - над
-- своїх
 - такий
 - таких
 - щоби
 - серед
-- свого
 - цій
 - тобто
 - таким
@@ -165,10 +152,7 @@ trailing_words:
 - протягом
 - крім
 - усіх
-- наш
-- нашого
 - така
-- свій
 question_openers:
 - чому
 - чого
