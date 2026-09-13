@@ -62,6 +62,7 @@ import thalovant_languages as languages
 languages.language("fr-CA")["continuation_words"]   # the French file
 languages.words("en", "trailing_words")             # lower-cased, as a set
 languages.plural_category("ru", 21)                 # "one", by CLDR's rules
+languages.asks("on mange à quelle heure ce soir", "fr")  # True: it holds a question word
 languages.language("tlh")                           # {} -- nothing describes it
 languages.script_pattern("unspaced").search("今天") # a character of an unspaced script
 languages.marks("sentence_ends", "spaced")          # every Sentence_Terminal mark, and "…;"
@@ -102,6 +103,8 @@ evaluator cannot read, and a list holding a boolean.
 - `thalovant-voice` (the satellite): the semantic endpoint's continuation
   words, the lower-casing of an all-capitals transcript, the plural forms of
   its own counted text, the synthesiser's pronunciation repairs.
+- the fleet's fallback skills (weather, date and time): a keyword net claims
+  a sentence only when `asks()` says it is a question.
 
 Nothing here parses dates, numbers or colours; the OVOS parsers do that for
 skills on the hub. Contractions come from `ovos-utterance-normalizer`, which

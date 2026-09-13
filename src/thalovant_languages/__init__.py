@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import os
 import re
+import unicodedata
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -35,7 +36,7 @@ from . import _plural
 from ._version import __version__
 
 __all__ = [
-    "KEYS", "ENV_OVERRIDE", "__version__", "check", "described", "language",
+    "KEYS", "ENV_OVERRIDE", "__version__", "asks", "check", "described", "language",
     "marks", "plural_category", "refresh", "root", "script_pattern", "scripts", "words",
 ]
 
@@ -73,7 +74,7 @@ def root() -> Path:
 
 def refresh() -> None:
     """Forget everything read so far, after changing the override."""
-    for cached in (_described, _language, _scripts, _script_pattern):
+    for cached in (_described, _language, _scripts, _script_pattern, _question_patterns):
         cached.cache_clear()
 
 
@@ -134,6 +135,36 @@ def words(tag: str | None, key: str) -> frozenset[str]:
     still marks a prefix rather than a sentence."""
     tags = (tag,) if tag else described()
     return frozenset(str(word).lower() for t in tags for word in language(t).get(key) or ())
+
+
+@lru_cache(maxsize=64)
+def _question_patterns(where: str, tag: str | None) -> tuple[re.Pattern[str], ...]:
+    tags = (tag,) if tag else described()
+    return tuple(re.compile(str(pattern), re.IGNORECASE)
+                 for t in tags for pattern in language(t).get("question_patterns") or ())
+
+
+def asks(text: str, tag: str | None) -> bool:
+    """Whether ``text`` asks something, by the language's own words: it opens
+    on one of its ``question_openers``, holds one of its
+    ``question_words_anywhere``, or matches one of its ``question_patterns``.
+    A closing question mark of any script counts in any language. With no
+    language, every described language's words are tried. A language nothing
+    describes gets nothing but the question mark."""
+    text = text.strip()
+    if not text:
+        return False
+    if "QUESTION MARK" in unicodedata.name(text[-1], ""):
+        return True
+    if any(pattern.search(text) for pattern in _question_patterns(str(root()), tag)):
+        return True
+    found = [word.strip(",;:!?.\u2019'\"()").lower() for word in text.split()]
+    found = [word for word in found if word]
+    if not found:
+        return False
+    if found[0] in words(tag, "question_openers"):
+        return True
+    return bool(words(tag, "question_words_anywhere").intersection(found))
 
 
 @lru_cache(maxsize=4)
