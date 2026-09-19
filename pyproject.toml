@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "thalovant-languages"
-version = "0.3.0"
+version = "0.3.1"
 description = "Every word a Thalovant component's rule turns on, for every supported language, in one place."
 readme = "README.md"
 license = "Apache-2.0"
@@ -32,6 +32,8 @@ dev = [
     "pytest>=8.0",
     # Cross-checks the plural rule evaluator against CLDR through Babel.
     "babel>=2.14",
+    # Authoring only: generate Chinese script word lists, never at runtime.
+    "opencc==1.4.2",
 ]
 
 [project.scripts]
@@ -46,7 +48,7 @@ Issues = "https://github.com/thalovant/thalovant-languages/issues"
 packages = ["src/thalovant_languages"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src", "tests", "LICENSE", "README.md", "pyproject.toml"]
+include = ["src", "tests", "scripts", "overrides", "LICENSE", "README.md", "pyproject.toml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -513,7 +513,10 @@ def main() -> int:
         ]
         _dump(args.out / tag / "language.yaml", header, data)
         written += 1
-    print(f"wrote {written} languages under {args.out}", file=sys.stderr)
+    from derive_chinese import derive_chinese
+
+    derive_chinese(args.out)
+    print(f"wrote {written} languages plus Chinese script overlays under {args.out}", file=sys.stderr)
     return 0
 
 

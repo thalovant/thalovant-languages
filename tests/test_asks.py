@@ -28,7 +28,9 @@ def test_a_question_is_one(text, lang):
     ("il fait beau aujourd'hui, on va se promener.", "fr"), ("c'est bruyant dehors avec les travaux", "fr"),
     ("je crois que le chat dort sur le canapé", "fr"), ("passe-moi le sel s'il te plaît", "fr"),
     ("turn off the lights", "en"), ("the dog needs a walk after dinner", "en-US"),
-    ("my phone battery is almost dead", "en"), ("", "en"), ("   ", "fr"),
+    ("my phone battery is almost dead", "en"),
+    ("island weather is pleasant", "en"), ("island 天氣很好", "en"),
+    ("今天出發", "zh-TW"), ("今天出发", "zh-CN"), ("", "en"), ("   ", "fr"),
 ])
 def test_a_statement_is_not(text, lang):
     assert not languages.asks(text, lang)
@@ -49,11 +51,12 @@ def test_a_checkout_named_by_the_environment_decides(tmp_path, monkeypatch):
     tree = tmp_path / "languages"
     (tree / "xq").mkdir(parents=True)
     (tree / "xq" / "language.yaml").write_text(
-        "question_openers: [zob]\nquestion_words_anywhere: [zib]\nquestion_patterns: ['\\bza [a-z]+ zu\\b']\n",
+        "question_openers: [zob]\nquestion_words_anywhere: [zib, 哪裡]\nquestion_patterns: ['\\bza [a-z]+ zu\\b']\n",
         encoding="utf-8")
     (tree / "scripts.yaml").write_text((languages.DATA_ROOT / "scripts.yaml").read_text(encoding="utf-8"), encoding="utf-8")
     monkeypatch.setenv(languages.ENV_OVERRIDE, str(tree))
     languages.refresh()
     assert languages.asks("zob lumi", "xq") and languages.asks("lumi zib lumi", "xq") and languages.asks("za lumi zu", "xq")
+    assert languages.asks("你要去哪裡", "xq")
     assert not languages.asks("lumi lumi", "xq")
     assert not languages.asks("what time is it", "en")
