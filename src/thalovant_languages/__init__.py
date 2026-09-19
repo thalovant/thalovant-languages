@@ -164,7 +164,24 @@ def asks(text: str, tag: str | None) -> bool:
         return False
     if found[0] in words(tag, "question_openers"):
         return True
-    return bool(words(tag, "question_words_anywhere").intersection(found))
+    anywhere = words(tag, "question_words_anywhere")
+    if anywhere.intersection(found):
+        return True
+    # Chinese and other unspaced scripts do not put a space after a word.
+    # Limit substring matching to words wholly in those scripts: English
+    # "is" must never claim "island", even in a mixed-language sentence.
+    unspaced = script_pattern("unspaced")
+    if not unspaced.search(text):
+        return False
+    normalized = " ".join(found)
+
+    def is_unspaced(word: str) -> bool:
+        return bool(word) and all(unspaced.fullmatch(char) for char in word)
+
+    return (
+        any(found[0].startswith(word) for word in words(tag, "question_openers") if is_unspaced(word))
+        or any(word in normalized for word in anywhere if is_unspaced(word))
+    )
 
 
 @lru_cache(maxsize=4)

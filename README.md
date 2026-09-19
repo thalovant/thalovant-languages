@@ -10,7 +10,7 @@ because "quelle" opens a question, and reads "volume {level} percent" aloud
 as "volume cinquante pour cent" in French. A French synthesiser is told to
 say "onze minutes" where it would swallow a consonant. Each of those is a
 fact about a language, not about the program that needs it. Here they are
-data: one directory per language, 270 of them, read by the SDK and by the
+data: 292 language and locale directories, read by the SDK and by the
 satellite, and none of it written by hand.
 
 ## Where the words come from
@@ -73,6 +73,16 @@ A language is found by the matcher the rest of OVOS uses
 language nothing describes gets an empty mapping rather than another
 language's rules. The keys a component reads are `thalovant_languages.KEYS`.
 
+Since **0.3.1**, Traditional Chinese tags (`zh-TW`, `zh-HK`, `zh-MO`,
+`zh-Hant`) find a `zh-Hant` word list. Simplified Chinese tags can use
+`zh-Hans`. Both inherit shared Chinese rules. These are writing-system
+variants, not Cantonese translations. `asks("什麼時候出發", "zh-TW")` works
+without inserting spaces or a question mark.
+
+SkillKit owns skill dialog translations and regional resource generation.
+This package supplies shared language rules; it does not need a copy of
+every skill's regional folders.
+
 `THALOVANT_LANGUAGES_DIR=/path/to/checkout/src/thalovant_languages/languages`
 reads a checkout instead of the installed data, for trying a change before
 it is released; `languages.refresh()` forgets what was read after changing it.
@@ -95,6 +105,31 @@ edit the file: change the generator's thresholds, or put what you know in
 `overrides/`, and rerun. `thalovant-languages check` refuses a key no
 component reads, a pattern that does not compile, a plural rule the
 evaluator cannot read, and a list holding a boolean.
+
+The Chinese treebanks contain both writing systems. After deriving `zh`,
+the generator uses OpenCC 1.4.2 to produce deduplicated `zh-Hans` and
+`zh-Hant` word lists. OpenCC is only needed for development; it is not a
+runtime dependency. To regenerate those lists from the committed Chinese
+source, without downloading treebanks again:
+
+```bash
+python scripts/derive_chinese.py
+python scripts/derive_chinese.py --check
+```
+
+The check fails when a generated list is missing or stale. Tests run it too.
+
+## Install and check a release
+
+```bash
+python -m pip install --upgrade thalovant-languages
+thalovant-languages check
+```
+
+[PyPI](https://pypi.org/project/thalovant-languages/) receives releases first.
+[Piwheels](https://www.piwheels.org/project/thalovant-languages/) publishes
+Raspberry Pi wheels independently, so a new release may appear there later.
+The package itself is pure Python; its wheel also works across platforms.
 
 ## Who reads it
 
