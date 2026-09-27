@@ -176,3 +176,6 @@ speech_substitutions:
 - pattern: (\bheures?\s+)(une|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|onze|douze|treize|quatorze|quinze|seize|dix-sept|dix-huit|dix-neuf|vingt|trente|quarante|cinquante|vingt-et-une|vingt-deux|vingt-trois|vingt-quatre|vingt-cinq|vingt-six|vingt-sept|vingt-huit|vingt-neuf|trente-et-une|quarante-cinq)(\s+à\b)
   replace: \1\2 minutes\3
   why: the fr acoustic model drops the number's last consonant before 'à'
+- pattern: (?<![\w°%)\]−-])[−-](?=\d)
+  replace: 'moins '
+  why: the voices drop a negative number's sign before a unit
