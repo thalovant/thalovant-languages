@@ -35,5 +35,5 @@ def test_list_and_show(capsys):
     assert "en" in listed and "fr" in listed and len(listed) > 200
     assert main(["show", "fr-CA"]) == 0
     shown = capsys.readouterr().out
-    assert "continuation_words:" in shown and "speech_substitutions: 1" in shown
+    assert "continuation_words:" in shown and "speech_substitutions: 2" in shown
     assert main(["show", "tlh"]) == 1

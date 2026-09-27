@@ -1,0 +1,10 @@
+# The sign of a negative number. The voices' text front end (phoonnx, then
+# espeak-ng) drops it before a unit: "-3°C" is said "3 degrees Celsius". It
+# also reads the Unicode minus "−" as the English word "minus". The sign is
+# written as "âm", the word espeak-ng says for a plain "-3". A hyphen after
+# a letter, a digit or a unit is left alone: "3-5", "2025-09-27",
+# "06-12-34-56-78" and hyphenated words.
+speech_substitutions:
+  - pattern: '(?<![\w°%)\]−-])[−-](?=\d)'
+    replace: 'âm '
+    why: the voices drop a negative number's sign before a unit
