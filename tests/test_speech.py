@@ -80,3 +80,21 @@ def test_a_hyphen_that_is_not_a_sign_is_left_alone(tag):
 def test_a_language_without_the_rule_is_untouched():
     assert said("-3", "ja") == "-3"
     assert said("-3", "tlh") == "-3"
+
+
+# Devanagari: a word often ends in a vowel sign, a combining mark that \w does
+# not match, so the hyphen after it has to be seen as following a letter.
+DEVANAGARI_NOT_A_SIGN = ["कक्षा-3", "कक्षा−3", "पेज-2", "कि-3", "संख्या-१२", "धारा-370"]
+
+
+@pytest.mark.parametrize("tag", ["hi", "ne"])
+def test_a_hyphen_after_a_devanagari_vowel_sign_is_left_alone(tag):
+    for text in DEVANAGARI_NOT_A_SIGN:
+        assert said(text, tag) == text, (tag, text)
+
+
+@pytest.mark.parametrize("tag", ["hi", "ne"])
+def test_a_devanagari_sentence_still_says_its_minus(tag):
+    word = MINUS[tag]
+    assert said("तापमान -3°C", tag) == f"तापमान {word} 3°C"
+    assert said("आज (−5) है", tag) == f"आज ({word} 5) है"
