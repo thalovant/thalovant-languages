@@ -41,6 +41,6 @@ trailing_words:
 plural:
   one: i = 0 or n = 1
 speech_substitutions:
-- pattern: (?<![\w°%)\]−-])[−-](?=\d)
+- pattern: (?<![\w\u0900-\u0963\u0966-\u097F°%)\]−-])[−-](?=\d)
   replace: 'ऋण '
   why: the voices drop a negative number's sign before a unit
