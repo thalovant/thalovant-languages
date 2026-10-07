@@ -6,6 +6,7 @@ order, case-insensitive, on the text before it reaches the synthesiser.
 from __future__ import annotations
 
 import re
+import unicodedata
 
 import pytest
 
@@ -33,7 +34,7 @@ MINUS = {
     "en": "minus", "fr": "moins", "es": "menos", "de": "minus", "it": "meno", "pt": "menos",
     "nl": "min", "ca": "menys", "eu": "minus", "da": "minus", "sv": "minus", "nb": "minus",
     "fi": "miinus", "pl": "minus", "cs": "mínus", "sk": "mínus", "sl": "minus", "ro": "minus",
-    "ru": "минус", "uk": "мінус", "bg": "минус", "el": "μείον", "tr": "eksi", "hu": "mínusz",
+    "ru": "минус", "uk": "мі́нус", "bg": "минус", "el": "μείον", "tr": "eksi", "hu": "mínusz",
     "is": "mínus", "lv": "mīnus", "et": "miinus", "lb": "minus", "cy": "minws", "sq": "minus",
     "sr": "минус", "id": "minus", "vi": "âm", "ka": "მინუს", "hy": "հանած", "fa": "منفی",
     "ar": "سالب", "he": "מינוס", "hi": "ऋण", "sw": "kasoro", "ko": "마이너스", "ne": "ऋणात्मक",
@@ -132,3 +133,62 @@ def test_the_loanword_hub_is_said_the_way_people_say_it(tag, text, expected):
 ])
 def test_a_word_that_only_starts_with_hub_is_left_alone(tag, text):
     assert said(text, tag) == text
+
+
+# Ukrainian stress ------------------------------------------------------------------
+
+def stressed(text: str) -> str:
+    """A test's expectation, written with ´ for the combining acute."""
+    return unicodedata.normalize("NFC", text.replace("´", "\u0301"))
+
+
+# The satellite's own lines (thalovant-voice locale/uk-UA/dialog), as said.
+@pytest.mark.parametrize("text,expected", [
+    ("Нічого не вдалося розчути.", "Нічо´го не вдало´ся розчу´ти."),
+    ("Не вдалося розібрати слова.", "Не вдало´ся розібра´ти слова´."),
+    ("Це динамік вашого помічника: вимірюю акустику кімнати.",
+     "Це дина´мік ва´шого помічника´: вимі´рюю аку´стику кімна´ти."),
+    ("Хаб відхилив цей запит.", "Хаб відхили´в цей за´пит."),
+    ("Хаб не дозволив цей запит.", "Хаб не дозво´лив цей за´пит."),
+    ("У хаба немає на це відповіді.", "У ха´ба нема´є на це ві´дповіді."),
+    ("Хаб нічого не відповів.", "Хаб нічо´го не відпові´в."),
+    ("Хаб вичерпав денний ліміт.", "Хаб ви´черпав де´нний лімі´т."),
+    ("Хаб не відповів вчасно.", "Хаб не відпові´в вча´сно."),
+    ("Хаб не зміг обробити запит.", "Хаб не зміг оброби´ти за´пит."),
+    ("Щось пішло не так під час звернення до хаба.",
+     "Щось пішло´ не так під час зве´рнення до ха´ба."),
+    ("Не вдалося підключитися до хаба.", "Не вдало´ся підключи´тися до ха´ба."),
+    ("Пора.", "Пора´."),
+    ("Будильник: Ліки", "Буди´льник: Ліки"),
+    ("У вас нагадування.", "У вас нага´дування."),
+    ("Нагадування: Ліки", "Нага´дування: Ліки"),
+    ("Будильник відкладено.", "Буди´льник відкла´дено."),
+    ("Таймер спрацював.", "Та´ймер спрацюва´в."),
+    ("Таймер: Ліки", "Та´ймер: Ліки"),
+])
+def test_the_satellite_s_ukrainian_lines_are_stressed(text, expected):
+    assert said(text, "uk") == stressed(expected)
+    assert said(said(text, "uk"), "uk") == said(text, "uk"), "a stressed word is left alone"
+
+
+@pytest.mark.parametrize("text,expected", [
+    ("Сьогодні хмарно, температура мінус 3 градуси.",
+     "Сього´дні хма´рно, температу´ра мі´нус 3 гра´дуси."),
+    ("-3 градуси", "мі´нус 3 гра´дуси"),
+    ("Зараз п'ятнадцята година десять хвилин.",
+     "За´раз п'ятна´дцята годи´на де´сять хвили´н."),
+    ("Будильник встановлено на восьму ранку.", "Буди´льник встано´влено на во´сьму ра´нку."),
+    ("Нагадаю вам о дев’ятій.", "Нагада´ю вам о дев’я´тій."),
+    ("Таймер скасовано.", "Та´ймер скасо´вано."),
+])
+def test_a_hub_s_answers_are_stressed(text, expected):
+    assert said(text, "uk") == stressed(expected)
+
+
+@pytest.mark.parametrize("text", [
+    "запитання", "запити", "годинник", "градусник", "хвилинка", "порада", "пори",
+    "погодитися", "ранок", "вечір", "сорока", "Пора року", "пора вставати", "нічого собі",
+    "слова", "п'ята", "тепло",
+])
+def test_a_word_a_rule_does_not_name_is_left_alone(text):
+    assert said(text, "uk") == text
