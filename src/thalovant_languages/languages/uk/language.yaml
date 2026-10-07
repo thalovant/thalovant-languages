@@ -162,5 +162,329 @@ plural:
   many: v = 0 and i % 10 = 0 or v = 0 and i % 10 = 5..9 or v = 0 and i % 100 = 11..14
 speech_substitutions:
 - pattern: (?<![\w°%)\]−-])[−-](?=\d)
-  replace: 'мінус '
+  replace: 'мі́нус '
   why: the voices drop a negative number's sign before a unit
+- pattern: \b(н)ічого(?=\s+не\b)
+  replace: \1ічо́го
+  why: нічо́го, nothing, before a verb's не; ні́чого is there is no need to
+- pattern: \b(р)озібрати(\s+)(с)лова\b
+  replace: \1озібра́ти\2\3лова́
+  why: розібрати слова́, make out the words; сло́ва is of the word
+- pattern: ^\s*(п)ора(?=\s*[.!…]*\s*$)
+  replace: \1ора́
+  why: the alarm's Пора́, it is time; по́ра is a season, or a pore
+- pattern: (?<![\w\u0300-\u036f])(в)далося(?![\w\u0300-\u036f])
+  replace: \1дало́ся
+  why: 'вдало́ся: unmarked, the voice said вда́лося'
+- pattern: (?<![\w\u0300-\u036f])(р)озчути(?![\w\u0300-\u036f])
+  replace: \1озчу́ти
+  why: 'розчу́ти: unmarked, the voice said розчути́'
+- pattern: (?<![\w\u0300-\u036f])(р)озібрати(?![\w\u0300-\u036f])
+  replace: \1озібра́ти
+  why: 'розібра́ти: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(д)инамік(ів|а|у|и)?(?![\w\u0300-\u036f])
+  replace: \1ина́мік\2
+  why: 'дина́мік: unmarked, the voice said динамі́к'
+- pattern: (?<![\w\u0300-\u036f])(в)ашого(?![\w\u0300-\u036f])
+  replace: \1а́шого
+  why: 'ва́шого: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(п)омічника(?![\w\u0300-\u036f])
+  replace: \1омічника́
+  why: 'помічника́: unmarked, the voice said помі́чника'
+- pattern: (?<![\w\u0300-\u036f])(в)имірюю(?![\w\u0300-\u036f])
+  replace: \1имі́рюю
+  why: 'вимі́рюю: unmarked, the voice said вимірю́ю'
+- pattern: (?<![\w\u0300-\u036f])(а)кустику(?![\w\u0300-\u036f])
+  replace: \1ку́стику
+  why: 'аку́стику: unmarked, the voice said акусти́ку'
+- pattern: (?<![\w\u0300-\u036f])(к)імнати(?![\w\u0300-\u036f])
+  replace: \1імна́ти
+  why: 'кімна́ти: unmarked, the voice said кімнати́'
+- pattern: (?<![\w\u0300-\u036f])(в)ідхилив(?![\w\u0300-\u036f])
+  replace: \1ідхили́в
+  why: 'відхили́в: unmarked, the voice said відхи́лив'
+- pattern: (?<![\w\u0300-\u036f])(з)апит(?![\w\u0300-\u036f])
+  replace: \1а́пит
+  why: 'за́пит: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(д)озволив(?![\w\u0300-\u036f])
+  replace: \1озво́лив
+  why: 'дозво́лив: unmarked, the voice said до́зволив'
+- pattern: (?<![\w\u0300-\u036f])(х)аба(?![\w\u0300-\u036f])
+  replace: \1а́ба
+  why: 'ха́ба: unmarked, the voice said хаба́; the dictionary also has хаба́; the loanword hub keeps its
+    stress'
+- pattern: (?<![\w\u0300-\u036f])(н)емає(?![\w\u0300-\u036f])
+  replace: \1ема́є
+  why: 'нема́є: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(в)ідповіді(?![\w\u0300-\u036f])
+  replace: \1і́дповіді
+  why: 'ві́дповіді: unmarked, the voice said відповіді́; marked, its durations do not show the stress'
+- pattern: (?<![\w\u0300-\u036f])(в)ідповів(?![\w\u0300-\u036f])
+  replace: \1ідпові́в
+  why: 'відпові́в: unmarked, the voice said відпо́вів'
+- pattern: (?<![\w\u0300-\u036f])(в)ичерпав(?![\w\u0300-\u036f])
+  replace: \1и́черпав
+  why: 'ви́черпав: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(д)енний(?![\w\u0300-\u036f])
+  replace: \1е́нний
+  why: 'де́нний: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(л)іміт(?![\w\u0300-\u036f])
+  replace: \1імі́т
+  why: 'лімі́т: unmarked, the voice said лі́міт'
+- pattern: (?<![\w\u0300-\u036f])(в)часно(?![\w\u0300-\u036f])
+  replace: \1ча́сно
+  why: 'вча́сно: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(о)бробити(?![\w\u0300-\u036f])
+  replace: \1броби́ти
+  why: 'оброби́ти: unmarked, the voice said обробити́; marked, its durations do not show the stress'
+- pattern: (?<![\w\u0300-\u036f])(п)ішло(?![\w\u0300-\u036f])
+  replace: \1ішло́
+  why: 'пішло́: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(з)вернення(?![\w\u0300-\u036f])
+  replace: \1ве́рнення
+  why: 'зве́рнення: unmarked, the voice said звернення́'
+- pattern: (?<![\w\u0300-\u036f])(п)ідключитися(?![\w\u0300-\u036f])
+  replace: \1ідключи́тися
+  why: 'підключи́тися: unmarked, the voice said підклю́читися; marked, its durations do not show the stress'
+- pattern: (?<![\w\u0300-\u036f])(б)удильник(ів|ом|а|у|и)?(?![\w\u0300-\u036f])
+  replace: \1уди́льник\2
+  why: 'буди́льник: unmarked, the voice said будильни́к'
+- pattern: (?<![\w\u0300-\u036f])(н)агадуванн(ям|я|ю)(?![\w\u0300-\u036f])
+  replace: \1ага́дуванн\2
+  why: 'нага́дуванн: unmarked, the voice said нагадування́'
+- pattern: (?<![\w\u0300-\u036f])(в)ідкладено(?![\w\u0300-\u036f])
+  replace: \1ідкла́дено
+  why: 'відкла́дено: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(т)аймер(ів|ом|а|у|и)?(?![\w\u0300-\u036f])
+  replace: \1а́ймер\2
+  why: 'та́ймер: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(с)працював(?![\w\u0300-\u036f])
+  replace: \1працюва́в
+  why: 'спрацюва́в: unmarked, the voice said спра́цював; marked, its durations do not show the stress'
+- pattern: (?<![\w\u0300-\u036f])(с)ьогодні(?![\w\u0300-\u036f])
+  replace: \1ього́дні
+  why: 'сього́дні: unmarked, the voice said сьогодні́'
+- pattern: (?<![\w\u0300-\u036f])(з)автра(?![\w\u0300-\u036f])
+  replace: \1а́втра
+  why: 'за́втра: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(п)іслязавтра(?![\w\u0300-\u036f])
+  replace: \1ісляза́втра
+  why: 'післяза́втра: unmarked, the voice said після́завтра'
+- pattern: (?<![\w\u0300-\u036f])(п)огод(ою|а|и|у|і)(?![\w\u0300-\u036f])
+  replace: \1ого́д\2
+  why: 'пого́д: unmarked, the voice said погода́; the dictionary also has погоди́, wait!, not a hub''s
+    word; погода itself is пого́да'
+- pattern: (?<![\w\u0300-\u036f])(п)рогноз(у|и)?(?![\w\u0300-\u036f])
+  replace: \1рогно́з\2
+  why: 'прогно́з: unmarked, the voice said про́гноз'
+- pattern: (?<![\w\u0300-\u036f])(т)емператур(ою|а|и|у|і)(?![\w\u0300-\u036f])
+  replace: \1емперату́р\2
+  why: 'температу́р: unmarked, the voice said температура́'
+- pattern: (?<![\w\u0300-\u036f])(г)радус(ів|а|и)?(?![\w\u0300-\u036f])
+  replace: \1ра́дус\2
+  why: 'гра́дус: unmarked, the voice said граду́с'
+- pattern: (?<![\w\u0300-\u036f])(м)інус(?![\w\u0300-\u036f])
+  replace: \1і́нус
+  why: 'мі́нус: unmarked, the voice said міну́с'
+- pattern: (?<![\w\u0300-\u036f])(х)марно(?![\w\u0300-\u036f])
+  replace: \1ма́рно
+  why: 'хма́рно: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(с)онячно(?![\w\u0300-\u036f])
+  replace: \1о́нячно
+  why: 'со́нячно: unmarked, the voice said соня́чно'
+- pattern: (?<![\w\u0300-\u036f])(я)сно(?![\w\u0300-\u036f])
+  replace: \1́сно
+  why: 'я́сно: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(в)ітер(?![\w\u0300-\u036f])
+  replace: \1і́тер
+  why: 'ві́тер: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(в)ітр(ом|у|і)(?![\w\u0300-\u036f])
+  replace: \1і́тр\2
+  why: 'ві́тр: unmarked, the voice said вітру́'
+- pattern: (?<![\w\u0300-\u036f])(в)ологість(?![\w\u0300-\u036f])
+  replace: \1оло́гість
+  why: 'воло́гість: unmarked, the voice said вологі́сть'
+- pattern: (?<![\w\u0300-\u036f])(о)чікується(?![\w\u0300-\u036f])
+  replace: \1чі́кується
+  why: 'очі́кується: unmarked, the voice said о́чікується'
+- pattern: (?<![\w\u0300-\u036f])(у)вечері(?![\w\u0300-\u036f])
+  replace: \1ве́чері
+  why: 'уве́чері: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(в)вечері(?![\w\u0300-\u036f])
+  replace: \1ве́чері
+  why: 'вве́чері: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(в)ранці(?![\w\u0300-\u036f])
+  replace: \1ра́нці
+  why: 'вра́нці: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(в)ночі(?![\w\u0300-\u036f])
+  replace: \1ночі́
+  why: 'вночі́: unmarked, the voice said вно́чі'
+- pattern: (?<![\w\u0300-\u036f])(з)араз(?![\w\u0300-\u036f])
+  replace: \1а́раз
+  why: 'за́раз: unmarked, the voice guesses; the dictionary also has зара́з, at once, not a hub''s word'
+- pattern: (?<![\w\u0300-\u036f])(г)один(ою|а|и|у|і)?(?![\w\u0300-\u036f])
+  replace: \1оди́н\2
+  why: 'годи́н: unmarked, the voice said го́дин'
+- pattern: (?<![\w\u0300-\u036f])(х)вилин(ою|а|и|у|і)?(?![\w\u0300-\u036f])
+  replace: \1вили́н\2
+  why: 'хвили́н: unmarked, the voice said хви́лин; marked, its durations do not show the stress'
+- pattern: (?<![\w\u0300-\u036f])(с)екунд(ою|а|и|у)?(?![\w\u0300-\u036f])
+  replace: \1еку́нд\2
+  why: 'секу́нд: unmarked, the voice said се́кунд'
+- pattern: (?<![\w\u0300-\u036f])(р)анку(?![\w\u0300-\u036f])
+  replace: \1а́нку
+  why: 'ра́нку: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(в)ечора(?![\w\u0300-\u036f])
+  replace: \1е́чора
+  why: 'ве́чора: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(н)очі(?![\w\u0300-\u036f])
+  replace: \1о́чі
+  why: 'но́чі: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(п)оловин(а|у|і)(?![\w\u0300-\u036f])
+  replace: \1олови́н\2
+  why: 'полови́н: unmarked, the voice said половина́; marked, its durations do not show the stress'
+- pattern: (?<![\w\u0300-\u036f])(н)агадаю(?![\w\u0300-\u036f])
+  replace: \1агада́ю
+  why: 'нагада́ю: unmarked, the voice said нагадаю́'
+- pattern: (?<![\w\u0300-\u036f])(в)становлено(?![\w\u0300-\u036f])
+  replace: \1стано́влено
+  why: 'встано́влено: unmarked, the voice said вста́новлено'
+- pattern: (?<![\w\u0300-\u036f])(с)касовано(?![\w\u0300-\u036f])
+  replace: \1касо́вано
+  why: 'скасо́вано: unmarked, the voice said ска́совано'
+- pattern: (?<![\w\u0300-\u036f])(в)имкнено(?![\w\u0300-\u036f])
+  replace: \1и́мкнено
+  why: 'ви́мкнено: unmarked, the voice said вимкнено́'
+- pattern: (?<![\w\u0300-\u036f])(к)упити(?![\w\u0300-\u036f])
+  replace: \1упи́ти
+  why: 'купи́ти: unmarked, the voice said купити́'
+- pattern: (?<![\w\u0300-\u036f])(м)олоко(?![\w\u0300-\u036f])
+  replace: \1олоко́
+  why: 'молоко́: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(з)ателефонувати(?![\w\u0300-\u036f])
+  replace: \1ателефонува́ти
+  why: 'зателефонува́ти: unmarked, the voice said за́телефонувати'
+- pattern: (?<![\w\u0300-\u036f])(л)ишилося(?![\w\u0300-\u036f])
+  replace: \1иши́лося
+  why: 'лиши́лося: unmarked, the voice said лишилося́'
+- pattern: (?<![\w\u0300-\u036f])(м)інімальна(?![\w\u0300-\u036f])
+  replace: \1ініма́льна
+  why: 'мініма́льна: unmarked, the voice said мінімальна́'
+- pattern: (?<![\w\u0300-\u036f])(м)аксимальна(?![\w\u0300-\u036f])
+  replace: \1аксима́льна
+  why: 'максима́льна: unmarked, the voice said максимальна́'
+- pattern: (?<![\w\u0300-\u036f])(т)уман(?![\w\u0300-\u036f])
+  replace: \1ума́н
+  why: 'тума́н: unmarked, the voice said ту́ман'
+- pattern: (?<![\w\u0300-\u036f])(м)ороз(у)?(?![\w\u0300-\u036f])
+  replace: \1оро́з\2
+  why: 'моро́з: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(х)олодно(?![\w\u0300-\u036f])
+  replace: \1о́лодно
+  why: 'хо́лодно: unmarked, the voice said холо́дно'
+- pattern: (?<![\w\u0300-\u036f])(п)рохолодно(?![\w\u0300-\u036f])
+  replace: \1рохоло́дно
+  why: 'прохоло́дно: unmarked, the voice said прохолодно́'
+- pattern: (?<![\w\u0300-\u036f])(х)марність(?![\w\u0300-\u036f])
+  replace: \1ма́рність
+  why: 'хма́рність: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(м)інлива(?![\w\u0300-\u036f])
+  replace: \1інли́ва
+  why: 'мінли́ва: unmarked, the voice said мінлива́'
+- pattern: (?<![\w\u0300-\u036f])(п)ерш(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1е́рш\2
+  why: 'пе́рш: unmarked, the voice said перша́'
+- pattern: (?<![\w\u0300-\u036f])(д)руг(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1ру́г\2
+  why: 'дру́г: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(т)рет(ій|я|ю)(?![\w\u0300-\u036f])
+  replace: \1ре́т\2
+  why: 'тре́т: unmarked, the voice said третя́'
+- pattern: (?<![\w\u0300-\u036f])(ч)етверт(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1етве́рт\2
+  why: 'четве́рт: unmarked, the voice said четверта́'
+- pattern: (?<![\w\u0300-\u036f])(ш)ост(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1о́ст\2
+  why: 'шо́ст: unmarked, the voice said шоста́'
+- pattern: (?<![\w\u0300-\u036f])(с)ьомій(?![\w\u0300-\u036f])
+  replace: \1ьо́мій
+  why: 'сьо́мій: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(в)осьм(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1о́сьм\2
+  why: 'во́сьм: unmarked, the voice said восьма́'
+- pattern: (?<![\w\u0300-\u036f])(д)ев(['’ʼ])ят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1ев\2я́т\3
+  why: 'дев''я́т: unmarked, the voice said де́в''ята'
+- pattern: (?<![\w\u0300-\u036f])(д)есят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1еся́т\2
+  why: 'деся́т: unmarked, the voice said десята́'
+- pattern: (?<![\w\u0300-\u036f])(о)динадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1дина́дцят\2
+  why: 'одина́дцят: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(д)ванадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1вана́дцят\2
+  why: 'двана́дцят: unmarked, the voice said дванадцята́'
+- pattern: (?<![\w\u0300-\u036f])(т)ринадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1рина́дцят\2
+  why: 'трина́дцят: unmarked, the voice said тринадцята́'
+- pattern: (?<![\w\u0300-\u036f])(ч)отирнадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1отирна́дцят\2
+  why: 'чотирна́дцят: unmarked, the voice said чотирнадцята́'
+- pattern: (?<![\w\u0300-\u036f])(п)(['’ʼ])ятнадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1\2ятна́дцят\3
+  why: 'п''ятна́дцят: unmarked, the voice said п''ятнадцята́'
+- pattern: (?<![\w\u0300-\u036f])(ш)істнадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1істна́дцят\2
+  why: 'шістна́дцят: unmarked, the voice said шістнадцята́'
+- pattern: (?<![\w\u0300-\u036f])(с)імнадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1імна́дцят\2
+  why: 'сімна́дцят: unmarked, the voice said сімнадцята́'
+- pattern: (?<![\w\u0300-\u036f])(в)ісімнадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1ісімна́дцят\2
+  why: 'вісімна́дцят: unmarked, the voice said вісімнадцята́'
+- pattern: (?<![\w\u0300-\u036f])(д)ев(['’ʼ])ятнадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1ев\2ятна́дцят\3
+  why: 'дев''ятна́дцят: unmarked, the voice said де́в''ятнадцята'
+- pattern: (?<![\w\u0300-\u036f])(д)вадцят(ій|а|у)(?![\w\u0300-\u036f])
+  replace: \1вадця́т\2
+  why: 'двадця́т: unmarked, the voice said два́дцята'
+- pattern: (?<![\w\u0300-\u036f])(о)дин(?![\w\u0300-\u036f])
+  replace: \1ди́н
+  why: 'оди́н: unmarked, the voice said о́дин'
+- pattern: (?<![\w\u0300-\u036f])(о)дна(?![\w\u0300-\u036f])
+  replace: \1дна́
+  why: 'одна́: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(ч)отири(?![\w\u0300-\u036f])
+  replace: \1оти́ри
+  why: 'чоти́ри: unmarked, the voice said чотири́'
+- pattern: (?<![\w\u0300-\u036f])(в)ісім(?![\w\u0300-\u036f])
+  replace: \1і́сім
+  why: 'ві́сім: unmarked, the voice said вісі́м'
+- pattern: (?<![\w\u0300-\u036f])(д)ев(['’ʼ])ять(?![\w\u0300-\u036f])
+  replace: \1е́в\2ять
+  why: 'де́в''ять: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(д)есять(?![\w\u0300-\u036f])
+  replace: \1е́сять
+  why: 'де́сять: unmarked, the voice said деся́ть'
+- pattern: (?<![\w\u0300-\u036f])(о)динадцять(?![\w\u0300-\u036f])
+  replace: \1дина́дцять
+  why: 'одина́дцять: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(д)ванадцять(?![\w\u0300-\u036f])
+  replace: \1вана́дцять
+  why: 'двана́дцять: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(п)(['’ʼ])ятнадцять(?![\w\u0300-\u036f])
+  replace: \1\2ятна́дцять
+  why: 'п''ятна́дцять: unmarked, the voice said п''я́тнадцять'
+- pattern: (?<![\w\u0300-\u036f])(д)вадцять(?![\w\u0300-\u036f])
+  replace: \1ва́дцять
+  why: 'два́дцять: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(д)вадцяти(?![\w\u0300-\u036f])
+  replace: \1вадцяти́
+  why: 'двадцяти́: unmarked, the voice said два́дцяти'
+- pattern: (?<![\w\u0300-\u036f])(т)ридцять(?![\w\u0300-\u036f])
+  replace: \1ри́дцять
+  why: 'три́дцять: unmarked, the voice guesses'
+- pattern: (?<![\w\u0300-\u036f])(с)орок(?![\w\u0300-\u036f])
+  replace: \1о́рок
+  why: 'со́рок: unmarked, the voice said соро́к; the dictionary also has соро́к, of magpies, not a hub''s
+    word'
