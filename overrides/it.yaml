@@ -7,3 +7,9 @@ speech_substitutions:
   - pattern: '(?<![\w°%)\]−-])[−-](?=\d)'
     replace: 'meno '
     why: the voices drop a negative number's sign before a unit
+  # The English loanword the apps use for the person's hub. The voices read
+  # "hub" as "ub"; people say "ab", as in "l'hub". Only the word itself and
+  # its endings: a longer word that starts the same way is left alone.
+  - pattern: '\bhub\b'
+    replace: 'ab'
+    why: the voices mispronounce the loanword hub

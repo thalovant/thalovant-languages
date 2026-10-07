@@ -8,3 +8,9 @@ speech_substitutions:
   - pattern: '(?<![\w°%)\]−-])[−-](?=\d)'
     replace: 'menos '
     why: the voices drop a negative number's sign before a unit
+  # The English loanword the apps use for the person's hub. The voices read
+  # "hub" without its h, as "ub"; people say "jab". Only the word itself and
+  # its endings: a longer word that starts the same way is left alone.
+  - pattern: '\bhub(s?)\b'
+    replace: 'jab\1'
+    why: the voices mispronounce the loanword hub

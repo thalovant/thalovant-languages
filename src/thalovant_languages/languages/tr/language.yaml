@@ -97,3 +97,6 @@ speech_substitutions:
 - pattern: (?<![\w°%)\]−-])[−-](?=\d)
   replace: 'eksi '
   why: the voices drop a negative number's sign before a unit
+- pattern: \bhub\b
+  replace: hab
+  why: the voices mispronounce the loanword hub

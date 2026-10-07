@@ -154,3 +154,6 @@ speech_substitutions:
 - pattern: (?<![\w°%)\]−-])[−-](?=\d)
   replace: 'meno '
   why: the voices drop a negative number's sign before a unit
+- pattern: \bhub\b
+  replace: ab
+  why: the voices mispronounce the loanword hub

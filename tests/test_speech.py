@@ -98,3 +98,37 @@ def test_a_devanagari_sentence_still_says_its_minus(tag):
     word = MINUS[tag]
     assert said("तापमान -3°C", tag) == f"तापमान {word} 3°C"
     assert said("आज (−5) है", tag) == f"आज ({word} 5) है"
+
+
+# The loanword "hub" --------------------------------------------------------------
+
+# Lines the satellite says, in the words its translations use for the hub.
+@pytest.mark.parametrize("tag,text,expected", [
+    ("de", "Der Hub hat nicht rechtzeitig geantwortet.", "Der Habb hat nicht rechtzeitig geantwortet."),
+    ("de", "Ich konnte den Hub nicht erreichen.", "Ich konnte den Habb nicht erreichen."),
+    ("da", "Jeg kunne ikke få forbindelse til hubben.", "Jeg kunne ikke få forbindelse til habben."),
+    ("es", "El hub no ha respondido a tiempo.", "El jab no ha respondido a tiempo."),
+    ("it", "Non riesco a raggiungere l'hub.", "Non riesco a raggiungere l'ab."),
+    ("pt", "O hub não respondeu a tempo.", "O rábi não respondeu a tempo."),
+    ("pt-PT", "O hub não respondeu a tempo.", "O rábi não respondeu a tempo."),
+    ("ro", "Nu am putut contacta hubul.", "Nu am putut contacta habul."),
+    ("tr", "Hub'a ulaşamadım.", "hab'a ulaşamadım."),
+    ("id", "Saya tidak bisa terhubung ke hub.", "Saya tidak bisa terhubung ke hab."),
+    ("pl", "Nie ma połączenia z hubem.", "Nie ma połączenia z habem."),
+])
+def test_the_loanword_hub_is_said_the_way_people_say_it(tag, text, expected):
+    assert said(text, tag) == expected
+
+
+# The word itself and its endings only: Spanish "hubo" is "there was".
+@pytest.mark.parametrize("tag,text", [
+    ("de", "Der Hubschrauber landet gleich."),
+    ("de", "Hubert ruft an."),
+    ("es", "Hubo un problema."),
+    ("es", "Si hubiera tiempo, iría."),
+    ("pt", "Hubert chegou."),
+    ("pl", "Hubert dzwonił."),
+    ("id", "Saya tidak bisa terhubung."),
+])
+def test_a_word_that_only_starts_with_hub_is_left_alone(tag, text):
+    assert said(text, tag) == text

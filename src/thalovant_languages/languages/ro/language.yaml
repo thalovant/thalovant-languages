@@ -175,3 +175,6 @@ speech_substitutions:
 - pattern: (?<![\w°%)\]−-])[−-](?=\d)
   replace: 'minus '
   why: the voices drop a negative number's sign before a unit
+- pattern: \bhub(ul|ului|uri|urile|urilor)?\b
+  replace: hab\1
+  why: the voices mispronounce the loanword hub
