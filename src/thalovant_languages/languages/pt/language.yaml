@@ -159,3 +159,6 @@ speech_substitutions:
 - pattern: (?<![\w°%)\]−-])[−-](?=\d)
   replace: 'menos '
   why: the voices drop a negative number's sign before a unit
+- pattern: \bhub(s?)\b
+  replace: rábi\1
+  why: the voices mispronounce the loanword hub

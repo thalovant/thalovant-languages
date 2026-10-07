@@ -188,3 +188,6 @@ speech_substitutions:
 - pattern: (?<![\w°%)\]−-])[−-](?=\d)
   replace: 'minus '
   why: the voices drop a negative number's sign before a unit
+- pattern: \bhub(a|ie|em|owi|y|ów|om|ami|ach)?\b
+  replace: hab\1
+  why: the voices mispronounce the loanword hub

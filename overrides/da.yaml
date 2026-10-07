@@ -8,3 +8,9 @@ speech_substitutions:
   - pattern: '(?<![\w°%)\]−-])[−-](?=\d)'
     replace: 'minus '
     why: the voices drop a negative number's sign before a unit
+  # The English loanword the apps use for the person's hub. The voices read
+  # "hub" and "hubben" with a long Danish u; people say "hab", "habben". Only the word itself and
+  # its endings: a longer word that starts the same way is left alone.
+  - pattern: '\bhub(ben|bens|s)?\b'
+    replace: 'hab\1'
+    why: the voices mispronounce the loanword hub
