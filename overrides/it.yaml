@@ -1,3 +1,12 @@
+# What a slot becomes when a registered pattern is read aloud, as in
+# en.yaml: plausible, and never a fact about the estate.
+slot_examples:
+  incident: l'ultimo
+  level: cinquanta
+  location: Toronto
+  query: la porta del garage
+  topic: l'elettricità
+
 # The sign of a negative number. The voices' text front end (phoonnx, then
 # espeak-ng) drops it before a unit: "-3°C" is said "3 degrees Celsius". The
 # sign is written as "meno", the word espeak-ng says for a plain "-3". A
